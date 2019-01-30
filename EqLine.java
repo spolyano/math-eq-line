@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class EqLine {
 	
-	// ax + b = 0
+	//ax + b = 0
 	private double a = 0;
 	private double b = 0;
 	private double root = 0;
