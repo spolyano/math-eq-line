@@ -3,10 +3,14 @@ import java.util.Scanner;
 
 public class EqLine {
 	
+	enum solutionType {NONE, ALL, NORMAL};
+	
 	//ax + b = 0
+	
 	private double a = 0;
 	private double b = 0;
 	private double root = 0;
+	private solutionType solution;
 	
 	public EqLine() {};
 	public EqLine(double a, double b) {
@@ -32,10 +36,24 @@ public class EqLine {
 	}
 	
 	public void calculate() {
-		root = (-b)/a;
+		if (a!=0) {
+			solution = solutionType.NORMAL;
+			root = (-b)/a;
+		}
+		else if (b==0) {
+			solution = solutionType.ALL;
+		}
+		else {
+			solution = solutionType.NONE;
+		}
 	}
 	
 	public double getRoot() {
 		return root;		
+	}
+	
+	public void printResult() {
+		if (solution == solutionType.NORMAL) System.out.println(root);
+		else System.out.println(solution);
 	}
 }
