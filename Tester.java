@@ -6,7 +6,8 @@ public class Tester {
 		EqLine eq1 = new EqLine();
 		eq1.setCoeffFromKey();
 		eq1.calculate();
-		System.out.println(eq1.getRoot());
+		//System.out.println(eq1.getRoot());
+		eq1.printResult();
 		
 	}
 	
