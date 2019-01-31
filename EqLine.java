@@ -35,11 +35,10 @@ public class EqLine {
 	}
 	
 	public void calculate() {
+		eqStr = a + "x " + ( (Math.signum(b)<0)? "-":"+" ) + " " + Math.abs(b) + " = 0";
 		if (a!=0) {
 			solution = solutionType.NORMAL;
 			root = (-b)/a;
-			if (b<0) 	eqStr = a + "x - " + (-1)*b + " = 0";
-			else 		eqStr = a + "x + " + b + " = 0";
 		}
 		else if (b==0) {
 			solution = solutionType.ALL;
@@ -53,11 +52,12 @@ public class EqLine {
 		return root;		
 	}
 	
+	public Object getSolution() {
+		return (solution == solutionType.NORMAL) ? root : solution;
+	}
+	
 	public void printResult() {
-		if (solution == solutionType.NORMAL) {
-			System.out.println(eqStr);
-			System.out.println("x = " + root);
-		}
-		else System.out.println("Special case: " + solution);
+		System.out.println(eqStr);
+		System.out.println("x = " + getSolution());
 	}
 }
