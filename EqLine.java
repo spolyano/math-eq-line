@@ -3,13 +3,12 @@ import java.util.Scanner;
 
 public class EqLine {
 	
-	enum solutionType {NONE, ALL, NORMAL};
-	
 	//ax + b = 0
-	
 	private double a = 0;
 	private double b = 0;
 	private double root = 0;
+	
+	private enum solutionType {NONE, ALL, NORMAL};
 	private solutionType solution;
 	
 	public EqLine() {};
@@ -53,7 +52,10 @@ public class EqLine {
 	}
 	
 	public void printResult() {
-		if (solution == solutionType.NORMAL) System.out.println(root);
-		else System.out.println(solution);
+		if (solution == solutionType.NORMAL) {
+			System.out.println(a + "x + " + b + " = 0");
+			System.out.println("x = " + root);
+		}
+		else System.out.println("Special case: " + solution);
 	}
 }
