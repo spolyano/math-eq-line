@@ -3,10 +3,10 @@ import java.util.Scanner;
 
 public class EqLine {
 	
-	//ax + b = 0
 	private double a = 0;
 	private double b = 0;
 	private double root = 0;
+	private String eqStr = "ax + b = 0";
 	
 	private enum solutionType {NONE, ALL, NORMAL};
 	private solutionType solution;
@@ -38,6 +38,8 @@ public class EqLine {
 		if (a!=0) {
 			solution = solutionType.NORMAL;
 			root = (-b)/a;
+			if (b<0) 	eqStr = a + "x - " + (-1)*b + " = 0";
+			else 		eqStr = a + "x + " + b + " = 0";
 		}
 		else if (b==0) {
 			solution = solutionType.ALL;
@@ -53,7 +55,7 @@ public class EqLine {
 	
 	public void printResult() {
 		if (solution == solutionType.NORMAL) {
-			System.out.println(a + "x + " + b + " = 0");
+			System.out.println(eqStr);
 			System.out.println("x = " + root);
 		}
 		else System.out.println("Special case: " + solution);
