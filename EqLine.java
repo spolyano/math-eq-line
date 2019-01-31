@@ -3,9 +3,9 @@ import java.util.Scanner;
 
 public class EqLine {
 	
-	private double a = 0;
-	private double b = 0;
-	private double root = 0;
+	private double a;
+	private double b;
+	private double root;
 	private String eqStr = "ax + b = 0";
 	
 	private enum solutionType {NONE, ALL, NORMAL};
