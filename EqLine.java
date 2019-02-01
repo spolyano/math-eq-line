@@ -1,10 +1,11 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class EqLine {
 	
-	private double a;
-	private double b;
+	private double[] coeff = new double[2];
+	//private ArrayList<Double> coeffList = new ArrayList<Double>();
 	private double root;
 	private String eqStr = "ax + b = 0";
 	
@@ -12,44 +13,36 @@ public class EqLine {
 	private solutionType solution;
 	
 	public EqLine() {};
-	public EqLine(double a, double b) {
-		this.a = a;
-		this.b = b;
-	}
-	
+
 	public void setCoeffFromKey() {
 		Scanner keyRead = new Scanner(System.in);
 		
-		try {
-			System.out.print("a = ");
-			a = keyRead.nextDouble();
-			
-			System.out.print("b = ");
-			b = keyRead.nextDouble();
+		for (int i=0; i<=1; i++){
+			System.out.print("a" + i + " = ");
+			coeff[i] = (keyRead.hasNextDouble()? keyRead.nextDouble() : 0);
 		}
-		catch (InputMismatchException ex) {
-			System.out.println("Please type double variables.");
-		}
-		
+
 		keyRead.close();
 	}
 	
 	public void calculate() {
-		eqStr = a + "x " + ( (Math.signum(b)<0)? "-":"+" ) + " " + Math.abs(b) + " = 0";
-		if (a!=0) {
+
+		eqStr = coeff[0] + "x " + ( (Math.signum(coeff[1])<0)? "-":"+" ) + " " + Math.abs(coeff[1]) + " = 0";
+		if (coeff[0]!=0) {
 			solution = solutionType.NORMAL;
-			root = (-b)/a;
+			root = (-coeff[1])/coeff[0];
 		}
-		else if (b==0) {
+		else if (coeff[1]==0) {
 			solution = solutionType.ALL;
 		}
 		else {
 			solution = solutionType.NONE;
 		}
+		
 	}
 	
 	public double getRoot() {
-		return root;		
+		return root;
 	}
 	
 	public Object getSolution() {
