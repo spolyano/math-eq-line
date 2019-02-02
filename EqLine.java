@@ -3,10 +3,10 @@ import java.io.InputStream;
 
 public class EqLine {
 	
-	private static final int DEGREE = 2;
+	private static final int DEGREE = 1;
 	
-	private double[] coeff = new double[DEGREE];
-	private double[] root = new double[DEGREE - 1];
+	private double[] coeff = new double[DEGREE + 1];
+	private double[] root = new double[DEGREE];
 
 	private String eqStr = "ax + b = 0";
 	
