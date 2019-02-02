@@ -1,6 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.InputStream;
 
 public class EqLine {
 	
@@ -13,8 +14,8 @@ public class EqLine {
 	private solutionType solution;
 	
 	public EqLine() {};
-
-	public void setCoeffFromKey() {
+	
+	public void init() {
 		Scanner keyRead = new Scanner(System.in);
 		char label;
 		int i;
@@ -23,6 +24,15 @@ public class EqLine {
 			coeff[i] = (keyRead.hasNextDouble()? keyRead.nextDouble() : 0);
 		}
 
+		keyRead.close();
+	}
+	
+	public void init(InputStream inStr)
+	{
+		Scanner keyRead = new Scanner(System.in);
+		for (int i=0; (i<coeff.length) && keyRead.hasNextDouble(); i++){
+			coeff[i] = keyRead.nextDouble();
+		}
 		keyRead.close();
 	}
 	
