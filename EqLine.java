@@ -50,15 +50,23 @@ public class EqLine {
 		}
 	}
 	
-	public String printRoot() {
+	private String representRoot() {
 		String res = "";
-		int i;
-		for (i=0; i<root.length; i++) res+= "x = " + root[i] + "\n";
+		for (int i=0; i<root.length; i++) res+= "x = " + root[i] + "\n";
 		return res;
 	}
 	
-	public Object getSolution() {
-		return (solution == solutionType.NORMAL) ? printRoot() : solution;
+	private String representSolution() {
+		switch(solution) {
+			case NONE:		return "No possible solution";
+			case ALL:		return "All values are a valid solution";
+			case NORMAL:	return "Root is possible";
+			default:		return "Invalid solution";
+		}
+	}
+	
+	public String getSolution() {
+		return (solution == solutionType.NORMAL) ? representRoot() : representSolution();
 	}
 	
 	public void printResult() {
