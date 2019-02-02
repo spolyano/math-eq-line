@@ -16,9 +16,10 @@ public class EqLine {
 
 	public void setCoeffFromKey() {
 		Scanner keyRead = new Scanner(System.in);
-		
-		for (int i=0; i<coeff.length; i++){
-			System.out.print("a" + i + " = ");
+		char label;
+		int i;
+		for (i=0, label='a'; i<coeff.length; i++, label++){
+			System.out.print(label + " = ");
 			coeff[i] = (keyRead.hasNextDouble()? keyRead.nextDouble() : 0);
 		}
 
