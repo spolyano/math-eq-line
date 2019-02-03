@@ -4,24 +4,25 @@ import java.util.ArrayList;
 
 public class EqLine {
 	
-	private static final int DEGREE = 1;
+	private final int POWER;
+	public EqLine(int power) {
+		POWER = power;
+	}
 	
 	private ArrayList<Double> coeffs = new ArrayList<Double>();	
-	private double[] root = new double[DEGREE];
-
 	private String eqStr = "ax + b = 0";
 	
 	private enum solutionType {
-		NONE ("No possible solution"),
-		ALL ("All values are a valid solution"),
-		NORMAL ("Solution should be there"),
-		INVALID ("Invalid state");
-		private final String texrForm;
+		NONE	("No possible solution"),
+		ALL		("All values are a valid solution"),
+		NORMAL	("Solution should be there"),
+		INVALID	("Invalid state");
+		private final String textForm;
 		solutionType(String txt) {
-			texrForm = txt;
+			textForm = txt;
 		}
 		public String toString() {
-			return texrForm;
+			return textForm;
 		}
 		
 	};
@@ -51,6 +52,21 @@ public class EqLine {
 				solType = solutionType.NORMAL;
 				roots.add(-params.get(1)/params.get(0));
 			}
+			else if (params.size() == 3) {
+				double dis = params.get(1)*params.get(1) - 4*params.get(0)*params.get(2);
+				
+				if (dis > 0) {
+					double disSqrt = Math.sqrt(dis);
+					roots.add((-params.get(1) + disSqrt)/(2*params.get(0)));
+					roots.add((-params.get(1) - disSqrt)/(2*params.get(0)));
+					solType = solutionType.NORMAL;
+				}
+				else if (dis == 0){
+					roots.add(-params.get(1)/(2*params.get(0)));
+					solType = solutionType.NORMAL;
+				}
+				else solType = solutionType.NONE;
+			}
 			else {
 				solType = solutionType.INVALID;
 			}
@@ -62,7 +78,7 @@ public class EqLine {
 	public void init(InputStream inStr)
 	{
 		Scanner keyRead = new Scanner(inStr);
-		for (int i=0; (i<DEGREE+1) && keyRead.hasNextDouble(); i++) {
+		for (int i=0; (i<POWER+1) && keyRead.hasNextDouble(); i++) {
 			double tmp = keyRead.nextDouble();
 			if((tmp!=0) || (coeffs.size()>0)) coeffs.add(tmp);
 		}
@@ -71,7 +87,7 @@ public class EqLine {
 		eqStr = " = 0";
 		for (int i=coeffs.size()-1; i>=0; i--) {
 			for (int j=0; j<coeffs.size()-i-1; j++) eqStr = "*X" + eqStr;
-			eqStr = (Math.signum(coeffs.get(i))<0)? " - ":" + " + Math.abs(coeffs.get(i)) + eqStr;
+			eqStr = ((Math.signum(coeffs.get(i))<0)? " - ":" + ") + Math.abs(coeffs.get(i)) + eqStr;
 		}
 	}
 	
