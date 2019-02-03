@@ -55,17 +55,15 @@ public class EqLine {
 			else if (params.size() == 3) {
 				double dis = params.get(1)*params.get(1) - 4*params.get(0)*params.get(2);
 				
-				if (dis > 0) {
+				if (dis < 0) {
+					solType = solutionType.NONE;
+				}
+				else {
+					solType = solutionType.NORMAL;
 					double disSqrt = Math.sqrt(dis);
 					roots.add((-params.get(1) + disSqrt)/(2*params.get(0)));
-					roots.add((-params.get(1) - disSqrt)/(2*params.get(0)));
-					solType = solutionType.NORMAL;
+					if (dis > 0) roots.add((-params.get(1) - disSqrt)/(2*params.get(0)));
 				}
-				else if (dis == 0){
-					roots.add(-params.get(1)/(2*params.get(0)));
-					solType = solutionType.NORMAL;
-				}
-				else solType = solutionType.NONE;
 			}
 			else {
 				solType = solutionType.INVALID;
@@ -86,6 +84,7 @@ public class EqLine {
 
 		eqStr = " = 0";
 		for (int i=coeffs.size()-1; i>=0; i--) {
+			if(coeffs.get(i)==0) continue;
 			for (int j=0; j<coeffs.size()-i-1; j++) eqStr = "*X" + eqStr;
 			eqStr = ((Math.signum(coeffs.get(i))<0)? " - ":" + ") + Math.abs(coeffs.get(i)) + eqStr;
 		}
