@@ -9,7 +9,7 @@ public static class Equation {
 	private String eqStr;
 	
 	private solutionType solType;
-	private ArrayList<Double> roots = new ArrayList<Double>();
+	private double roots;
 	
 	private enum solutionType {
 		NONE	("No possible solution"),
@@ -26,18 +26,18 @@ public static class Equation {
 		
 	};
 		
-	public String toString() {
+	public String printRoots() {
 		if (solType == solutionType.NORMAL) {
 			String res="";
-			for (int i=0; i<roots.size(); i++) {
-				res+= "x = " + roots.get(i) + "\n";
+			for (int i=0; i<roots.length; i++) {
+				res+= "x = " + roots[i] + "\n";
 			}
 			return res;
 		}
 		else return solType.toString();
 	}
 		
-	public void solve(double params) {
+	public static void solve(double params) {
 		double a, b, c;
 		switch (params.length) {
 			case 0: {
@@ -50,7 +50,7 @@ public static class Equation {
 			}
 			case 2: {
 				solType = solutionType.NORMAL;
-				roots.add(-params.get(1)/params.get(0));
+				roots.add(-params[1]/params[0]);
 				break;
 			}
 			case 3: {
@@ -66,9 +66,9 @@ public static class Equation {
 				else {
 					solType = solutionType.NORMAL;
 					double disSqrt = Math.sqrt(dis);
-					roots.add((-params.get(1) + disSqrt)/(2*params.get(0)));
+					roots[0] = (-b + disSqrt)/(2*a);
 					if (dis > 0)
-						roots.add((-params.get(1) - disSqrt)/(2*params.get(0)));
+						roots[1] = (-b - disSqrt)/(2*a);
 				}
 				break;
 			}
@@ -77,6 +77,17 @@ public static class Equation {
 				break;
 			}
 		}
+		
+		//Equation string
+		eqStr = " = 0";
+		for (int i=coeffs.length-1; i>=0; i--) {
+			if(coeffs[i]==0) continue;
+			for (int j=0; j<coeffs.length-i-1; j++) eqStr = "*X" + eqStr;
+			eqStr = ((Math.signum(coeffs[i])<0)? " - ":" + ") + Math.abs(coeffs[i]) + eqStr;
+		}
+		
+		//roots
+		printRoots();
 	}
 	
 
@@ -85,15 +96,15 @@ public static class Equation {
 		Scanner keyRead = new Scanner(inStr);
 		for (int i=0; (i<POWER+1) && keyRead.hasNextDouble(); i++) {
 			double tmp = keyRead.nextDouble();
-			if((tmp!=0) || (coeffs.size()>0)) coeffs.add(tmp);
+			if((tmp!=0) || (coeffs.length>0)) coeffs[i] = tmp;
 		}
 		keyRead.close();
 
 		eqStr = " = 0";
-		for (int i=coeffs.size()-1; i>=0; i--) {
-			if(coeffs.get(i)==0) continue;
-			for (int j=0; j<coeffs.size()-i-1; j++) eqStr = "*X" + eqStr;
-			eqStr = ((Math.signum(coeffs.get(i))<0)? " - ":" + ") + Math.abs(coeffs.get(i)) + eqStr;
+		for (int i=coeffs.length-1; i>=0; i--) {
+			if(coeffs[i]==0) continue;
+			for (int j=0; j<coeffs.length-i-1; j++) eqStr = "*X" + eqStr;
+			eqStr = ((Math.signum(coeffs[i])<0)? " - ":" + ") + Math.abs(coeffs[i]) + eqStr;
 		}
 	}
 
