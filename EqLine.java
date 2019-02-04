@@ -2,16 +2,16 @@ import java.util.Scanner;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public static class Equation {
+final class Equation {
 	
-	private final int POWER;
-	private double coeffs;	
-	private String eqStr;
+	private static final int POWER = 1;
+	private static double[] coeffs;	
+	private static String eqStr;
 	
-	private solutionType solType;
-	private double roots;
+	private static solutionType solType;
+	private static double[] roots;
 	
-	private enum solutionType {
+	private static enum solutionType {
 		NONE	("No possible solution"),
 		ALL	("All values are a valid solution"),
 		NORMAL	("Solution should be there"),
@@ -26,7 +26,7 @@ public static class Equation {
 		
 	};
 		
-	public String printRoots() {
+	public static String printRoots() {
 		if (solType == solutionType.NORMAL) {
 			String res="";
 			for (int i=0; i<roots.length; i++) {
@@ -37,7 +37,7 @@ public static class Equation {
 		else return solType.toString();
 	}
 		
-	public static void solve(double params) {
+	public static void solve(double[] params) {
 		double a, b, c;
 		switch (params.length) {
 			case 0: {
@@ -50,7 +50,7 @@ public static class Equation {
 			}
 			case 2: {
 				solType = solutionType.NORMAL;
-				roots.add(-params[1]/params[0]);
+				roots[0] = (-params[1]/params[0]);
 				break;
 			}
 			case 3: {
@@ -110,6 +110,6 @@ public static class Equation {
 
 	public void printResult() {
 		System.out.println(eqStr);
-		System.out.println(solution);
+		//System.out.println(solution);
 	}
 }
